@@ -110,6 +110,7 @@ android {
             buildConfigField 'boolean', 'SHOW_TEST_COUNTRY_CODE', 'true'
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'true'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'true'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'true'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelWarn()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelSupress()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
@@ -139,6 +140,7 @@ android {
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'false'
             buildConfigField 'boolean', 'SHOW_ADDRESS_BOOK_INVITATIONS', 'false'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'true'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'true'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
@@ -164,6 +166,7 @@ android {
             buildConfigField 'boolean', 'SHOW_TEST_COUNTRY_CODE', 'false'
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'false'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'false'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'false'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelSupress()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelSupress()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelSupress()
@@ -192,6 +195,7 @@ android {
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'false'
             buildConfigField 'boolean', 'SHOW_ADDRESS_BOOK_INVITATIONS', 'false'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'false'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'false'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
@@ -219,6 +223,7 @@ android {
             buildConfigField 'boolean', 'SHOW_TEST_COUNTRY_CODE', 'false'
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'false'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'false'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'true'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelSupress()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
@@ -247,6 +252,7 @@ android {
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'false'
             buildConfigField 'boolean', 'SHOW_ADDRESS_BOOK_INVITATIONS', 'false'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'true'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'true'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelSupress()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
@@ -274,6 +280,7 @@ android {
             buildConfigField 'boolean', 'SHOW_TEST_COUNTRY_CODE', 'true'
             buildConfigField 'boolean', 'SHOW_MENTIONING', 'true'
             buildConfigField 'boolean', 'IS_TEST_GALLERY_ALLOWED', 'true'
+            buildConfigField 'boolean', 'SHOW_BACKEND_PICKER', 'true'
             buildConfigField 'int', 'LOG_LEVEL_UI', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_SE', logLevelVerbose()
             buildConfigField 'int', 'LOG_LEVEL_AVS', logLevelVerbose()
