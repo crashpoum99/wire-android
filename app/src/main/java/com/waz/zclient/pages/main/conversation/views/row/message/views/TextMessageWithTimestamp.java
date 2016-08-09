@@ -100,8 +100,7 @@ public class TextMessageWithTimestamp extends LinearLayout implements AccentColo
     };
     private GestureDetectorCompat gestureDetector;
     private int animationDuration;
-    private String messageId;
-    private OnLongClickListener longClickListener;
+    private Message message;
 
     public TextMessageWithTimestamp(Context context) {
         this(context, null);
@@ -134,19 +133,11 @@ public class TextMessageWithTimestamp extends LinearLayout implements AccentColo
         gestureDetector = new GestureDetectorCompat(context, this);
     }
 
-    @Override
-    public void setOnLongClickListener(OnLongClickListener l) {
-        if (!gestureDetector.isLongpressEnabled()) {
-            gestureDetector.setIsLongpressEnabled(l != null);
-        }
-        this.longClickListener = l;
-    }
-
     public void setMessage(final Message message) {
         messageModelObserver.setAndUpdate(message);
         messageTextView.setVisibility(View.VISIBLE);
-        messageId = message.getId();
-        if (messageViewContainer.getTimestampShownSet().contains(messageId)) {
+        this.message = message;
+        if (messageViewContainer.getTimestampShownSet().contains(message.getId())) {
             messageViewContainer.setShownTimestampView(this);
             timestampTextView.setVisibility(VISIBLE);
         } else {
@@ -159,7 +150,7 @@ public class TextMessageWithTimestamp extends LinearLayout implements AccentColo
             messageViewContainer.getShownTimestampView() != this) {
             messageViewContainer.getShownTimestampView().collapseTimestamp();
         }
-        messageViewContainer.getTimestampShownSet().add(messageId);
+        messageViewContainer.getTimestampShownSet().add(message.getId());
         messageViewContainer.setShownTimestampView(this);
         timestampTextView.setVisibility(VISIBLE);
 
@@ -175,7 +166,7 @@ public class TextMessageWithTimestamp extends LinearLayout implements AccentColo
     }
 
     private void collapseTimestamp() {
-        messageViewContainer.getTimestampShownSet().remove(messageId);
+        messageViewContainer.getTimestampShownSet().remove(message.getId());
         int origHeight = timestampTextView.getHeight();
 
         ValueAnimator animator = createHeightAnimator(timestampTextView, origHeight, 0);
@@ -275,8 +266,8 @@ public class TextMessageWithTimestamp extends LinearLayout implements AccentColo
 
     @Override
     public void onLongPress(MotionEvent e) {
+        messageViewContainer.onItemLongClick(message);
         performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-        longClickListener.onLongClick(this);
     }
 
     @Override
