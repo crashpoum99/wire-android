@@ -81,9 +81,12 @@ import com.waz.api.UpdateListener;
 import com.waz.api.User;
 import com.waz.api.UsersList;
 import com.waz.api.Verification;
+import com.waz.zclient.BaseScalaActivity;
 import com.waz.zclient.BuildConfig;
 import com.waz.zclient.OnBackPressedListener;
 import com.waz.zclient.R;
+import com.waz.zclient.camera.GlobalCameraController;
+import com.waz.zclient.camera.GlobalCameraObserver;
 import com.waz.zclient.controllers.IControllerFactory;
 import com.waz.zclient.controllers.accentcolor.AccentColorObserver;
 import com.waz.zclient.controllers.calling.CallingObserver;
@@ -202,7 +205,7 @@ public class ConversationFragment extends BaseFragment<ConversationFragment.Cont
                                                                                                   AssetIntentsManager.Callback,
                                                                                                   PagerControllerObserver,
                                                                                                   CursorImagesLayout.Callback,
-                                                                                                  VoiceFilterLayout.Callback, ExtendedCursorContainer.Callback {
+                                                                                                  VoiceFilterLayout.Callback, ExtendedCursorContainer.Callback, GlobalCameraObserver {
     public static final String TAG = ConversationFragment.class.getName();
     private static final String SAVED_STATE_PREVIEW = "SAVED_STATE_PREVIEW";
     private static final int REQUEST_FILE_CODE = 9412;
@@ -247,6 +250,7 @@ public class ConversationFragment extends BaseFragment<ConversationFragment.Cont
     private AssetIntentsManager assetIntentsManager;
     private ViewGroup containerPreview;
     private boolean isPreviewShown;
+    private boolean isVideoMessageButtonClicked;
 
     public static ConversationFragment newInstance() {
         return new ConversationFragment();
@@ -1531,10 +1535,10 @@ public class ConversationFragment extends BaseFragment<ConversationFragment.Cont
                 getControllerFactory().getTrackingController().tagEvent(OpenedMediaActionEvent.file(isGroupConversation));
                 break;
             case VIDEO_MESSAGE:
-                getControllerFactory().getTrackingController().tagEvent(OpenedMediaActionEvent.videomessage(
-                    isGroupConversation));
-                extendedCursorContainer.close(false);
-                assetIntentsManager.maybeOpenVideo(getActivity(), AssetIntentsManager.IntentType.VIDEO_CURSOR_BUTTON);
+                getControllerFactory().getTrackingController().tagEvent(OpenedMediaActionEvent.videomessage(isGroupConversation));
+                getCameraController().addObserver(this);
+                isVideoMessageButtonClicked = true;
+                getCameraController().releaseCamera();
                 break;
             case LOCATION:
                 getControllerFactory().getLocationController().showShareLocation();
@@ -1547,6 +1551,10 @@ public class ConversationFragment extends BaseFragment<ConversationFragment.Cont
                     getConversationTypeString()));
                 break;
         }
+    }
+
+    private GlobalCameraController getCameraController() {
+        return ((BaseScalaActivity) getActivity()).injectJava(GlobalCameraController.class);
     }
 
     private void openExtendedCursor(ExtendedCursorContainer.Type type) {
@@ -2159,6 +2167,16 @@ public class ConversationFragment extends BaseFragment<ConversationFragment.Cont
     @Override
     public void onExtendedCursorClosed() {
         cursorLayout.onExtendedCursorClosed();
+    }
+
+    @Override
+    public void onCameraReleased() {
+        if (!isVideoMessageButtonClicked) {
+            return;
+        }
+        isVideoMessageButtonClicked = false;
+        getCameraController().removeObserver(this);
+        assetIntentsManager.maybeOpenVideo(getActivity(), AssetIntentsManager.IntentType.VIDEO_CURSOR_BUTTON);
     }
 
     public interface Container {

@@ -17,18 +17,15 @@
  */
 package com.waz.zclient.camera;
 
-import android.graphics.Rect;
-import com.waz.api.ImageAsset;
+public interface GlobalCameraObserver {
 
-public interface CameraPreviewObserver extends GlobalCameraObserver {
-
-    void onCameraLoaded();
-
-    void onCameraLoadingFailed();
-
-    void onPictureTaken(ImageAsset imageAsset);
-
-    void onFocusBegin(Rect focusArea);
-
-    void onFocusComplete();
+    /**
+     * This method needs to be overriden if we ever want to leave the app (and potentially let another app use the
+     * camera). Only when this callback method returns can we be sure that the camera is closed and that it's safe for
+     * other apps to attempt to open it.
+     *
+     * To initiate releasing the camera, inject an instance of the GlobalCameraController and call the releaseCamera
+     * method. When finished, onCameraReleased will be called on any registered observers.
+     */
+    void onCameraReleased();
 }
